@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Animation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffbb00;
+        }
+
+        .message {
+            font-size: 50px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            color: #1d003f;
+        }
+
+        .heart {
+            color: red;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pop-animation {
+            animation: pop 0.3s ease-in-out;
+        }
+
+        #name {
+            margin-top: 20px; /* Space between animated message and name */
+            font-size: 24px;
+            color: #1d003f;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="message" class="message">| I LOVE YOU |</div>
+    <div id="name" class="message">| MARIFEL ANGELES GUECO |</div> <!-- Name placed here -->
+
+    <script>
+        const messageDiv = document.getElementById('message');
+        const heart = "❤️";
+
+        let step = 0;
+
+        const animations = [
+            { text: "| I LOVE YOU |", scale: "50px", removePop: true }, 
+            { text: `| I ${heart} YOU |`, scale: "40px", removePop: false },
+            { text: `| I ${heart} U |`, scale: "30px", removePop: true },
+            { text: `| ${heart} |`, scale: "20px", removePop: false }
+        ];
+
+        function animateMessage() {
+            if (step === animations.length) {
+                step = 0; // Reset animation to start again
+            }
+
+            // Apply the animation step
+            const currentAnimation = animations[step];
+            messageDiv.innerHTML = currentAnimation.text;
+            messageDiv.style.fontSize = currentAnimation.scale;
+
+            if (currentAnimation.removePop) {
+                messageDiv.classList.remove('pop-animation');
+            } else {
+                messageDiv.classList.add('pop-animation');
+            }
+
+            // Increment to move to the next step
+            step++;
+
+            // Repeat the animation every 1.5 seconds
+            setTimeout(animateMessage, 1500);
+        }
+
+        // Start the animation
+        animateMessage();
+    </script>
+</body>
+</html>
